@@ -1,0 +1,68 @@
+<program> ::= <declaration> <program>
+                | <declaration>
+
+<declaration> ::= <var_declaration>
+                | <function_declaration>
+                | <statement>
+
+<statement> ::= <print_statement>
+                | <if_statement> 
+                | <return_statement> 
+                | <while_loop>
+                | <block>
+
+<statements> ::= <statement> <statements> | <statement>
+
+<block> ::= "logic:" "{" <statements> "}"
+
+<var_declaration> ::= ".var" "{" "name:" <identifier> <var_declaration_tail> "}"
+<var_declaration_tail> ::= "," "value:" <expression>| ""
+
+<print_statement> ::= ".print" "{" "value:" ":" <expression> "}"
+
+<function_declaration> ::= ".function" "{" "name:" <identifier> <function_declaration_tail> "}"
+<function_declaration_tail> ::= "," "parameters:" "{" <param_entry> <param_entry_list> "}" "," <block> | "," <block>
+
+<parameters> ::=  <param_entry> | <param_entry> "," <parameters>
+<param_entry> ::= "param:" <identifier>
+
+<return_statement> ::= "return:" "{" "value:" <expression> "}"
+
+<if_statement> ::= ".if" "{" "condition:" <expression> "," <block> <else_clause> "}"
+<else_clause> ::= "," ".else" "{" <block> "}" | ""
+
+<while_loop> ::= ".while" "{" "condition:" <expression> "," <block> "}"
+
+<expression> ::= <assignment>
+
+<assignment> ::= "#" <identifier> "{" "value:" ":" <expression> "}" | <equality>
+
+<equality> ::= <comparison> "!=" <comparison> | <comparison> "==" <comparison> | <comparison>
+
+<comparison> ::= <term> ">" <term> | <term> ">=" <term> | <term> "<" <term> | <term> "<=" <term> | <term>
+
+<term> ::= <factor> "-" <factor> | <factor> "+" <factor> | <factor>
+
+<factor> ::= <unary> "/" <unary> | <unary> "*" <unary> | <unary>
+
+<unary> ::= "!" <unary> | "-" <unary> | <primary>
+
+<primary> ::= <number> | <string> | <boolean> | <null> | <identifier> | <function_call>
+
+<function_call> ::= "#" <identifier> "{" <arguments> "}"
+<arguments> ::= <argument_pair> | <argument_pair> "," <arguments>
+<argument_pair> ::= <identifier> ":" <expression>
+
+<number> ::= <integer> | <float>
+<integer> ::= <digit> | <digit><integer>
+<float> ::= <integer> "." <integer>
+<digit> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+<identifier> ::= <characters>
+<string> ::= "\"" <characters> "\""
+<characters> ::= <char> | <char> <characters>
+
+<char> ::= [a-zA-Z0-9 ]
+
+<boolean> ::= "true" | "false"
+<null> ::= "null"

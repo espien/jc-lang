@@ -1,0 +1,86 @@
+// This is a comment, x = 14
+.var { 
+    name: x, 
+    value: 2 + 3 * 4 
+}
+
+.print { 
+    value: x + 2
+}
+
+.print { 
+    value: "Hello World!" 
+}
+
+// x = 20
+#x { value: x + 6}
+
+.print { 
+    value: x
+}
+
+.if {
+    condition: x == 20,
+    logic: {
+        .print {
+            value: "Variable 'x' equals 20"
+        }
+    }
+}
+
+.if {
+    condition: x < 20,
+    logic: {
+        .print {
+            value: "Variable 'x' is less than 20"
+        }
+    },
+    .else {
+        logic: {
+            .print {
+                value: "Variable 'x' is equal to or more than 20"
+            }
+        }
+    }
+}
+
+.while {
+    condition: x < 25,
+    logic: {
+        #x { value: x + 1}
+        .print {
+            value: "Icremented variable x"
+        }
+        .print {
+            value: x
+        }
+    }
+}
+
+
+.function {
+        name: sumTwoValues,
+        parameters: {
+            param: a,
+            param: b
+        },
+        logic: {
+            return: {
+                value: a + b
+            }
+        }
+}
+
+.var {
+    name: y,
+    value: #sumTwoValues { a: 10, b: 5 }
+}
+
+.print {
+    value: y
+}
+
+.print {
+    value: #sumTwoValues { a: 20, b: 20 } 
+}
+
